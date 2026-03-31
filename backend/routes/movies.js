@@ -1,4 +1,6 @@
 import express from 'express';
+import { appDataSource } from '../datasource.js';
+import Movie from '../entities/movies.js';
 
 const router = express.Router();
 
@@ -10,8 +12,22 @@ router.get('/', (req, res) => {
 });
 
 router.post('/new', (req,res) => {
-    console.log(req.body);
-    res.send(`Ajout de ${req.body.titre} sorti en ${req.body.date}`);
+  const movieRepository = appDataSource.getRepository(Movie);
+  const newMovie = movieRepository.create({
+    title: req.body.title,
+    date: req.body.date
+  });
+
+  movieRepository
+    .insert(newMovie)
+    .then(function (newDocument) {
+      res.status(201).json(newDocument);
+      res.send("Film added to database.");
+    })
+    .catch(function (error) {
+      console.error(error);
+        res.status(500).json({ message: 'Error while creating the movie' });
+    });
 })
 
 export default router;
