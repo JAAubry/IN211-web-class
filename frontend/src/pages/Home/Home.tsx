@@ -1,34 +1,21 @@
 import './Home.css'
-import { useEffect, useState } from 'react'
+import {useState } from 'react'
 import reactLogo from '../../assets/react.svg'
-import axios from 'axios';
+import { useFetchMovies } from '../../hooks/useFetchMovies'
+import { MovieCard } from '../../components/MovieCard'
 
-import { MovieCard } from '../../components/movieCard'
+function filterMovies(search: string, movies: string[]) {
+    return movies.filter(  (movie) =>
+    movie.toLowerCase().startsWith(search.toLowerCase()));
+}
 
 function Home() {
-  const apiKey = import.meta.env.VITE_TMDB_API_KEY;
-  // states = variables + fonction pour les mettre à jour
-  const [count, setCount] = useState(0)
-  const [movieName, setMovieName] = useState("");
-  const [movies, setMovies] = useState([]);
-
-  function useFetchMovies(){
-    useEffect(() => {
-    axios
-      .get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`)
-      .then((response) => {
-        setMovies(response.data.results.map((movieObjet: any) => movieObjet.title)) 
-        console.log(movies)
-      })
-      .catch((error) => {
-        // Do something if call failed
-        console.log(error)
-      });
-    });
-  };
+  const [search, setSearch] = useState("");
+  const {movies} = useFetchMovies();
+  const filteredMovies = filterMovies(search,movies) ;
   
   return (
-    <>
+    <div>
       <div>
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
@@ -38,20 +25,18 @@ function Home() {
       <div className="card">
         <input
             type="text"
-            value={movieName}
-            onChange={(e) => setMovieName(e.target.value)}
-            placeholder="Enter a movie name"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Effectuez votre recherche"
           />
-
-        <button onClick={() => setCount(count => count + 1)}>
-          count is {count}
-        </button>
       </div>
-      Coucou, {movieName}
-      {movies.map(title => (
+      Vous recherchez : {search}
+
+      <h2> Popular Movies</h2>
+      {filteredMovies.map(title => (
         <MovieCard title={title} />
       ))}
-    </>
+    </div>
   )
 }
 
