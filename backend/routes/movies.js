@@ -9,5 +9,10 @@ router.get('/', (req, res) => {
     
 });
 
+router.post('/new', (req,res) => {
+    console.log(req.body);
+    res.send(`Ajout de ${req.body.titre} sorti en ${req.body.date}`);
+})
+
 export default router;
 
