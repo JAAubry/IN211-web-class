@@ -4,6 +4,16 @@ import Movie from '../entities/movies.js';
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /api/movies:
+ *   get:
+ *     summary: Récupérer la liste des films
+ *     responses:
+ *       200:
+ *         description: Liste des films
+ */
+
 router.get('/', async (req, res) => {
     const movieRepository = appDataSource.getRepository(Movie);
     const movies = await movieRepository.find();
@@ -12,6 +22,29 @@ router.get('/', async (req, res) => {
     res.send(movies);
     
 });
+
+/**
+ * @swagger
+ * /api/movies/new:
+ *   post:
+ *     summary: Ajouter un film
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               releaseDate:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Film ajouté
+ *       500:
+ *         description: Erreur serveur
+ */
 
 router.post('/new', (req,res) => {
   const movieRepository = appDataSource.getRepository(Movie);
@@ -29,6 +62,29 @@ router.post('/new', (req,res) => {
         res.status(500).json({ message: 'Error while creating the movie' });
     });
 })
+
+/**
+ * @swagger
+ * /api/movies/delete:
+ *   post:
+ *     summary: Supprimer un film
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               movieId:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Film supprimé
+ *       404:
+ *         description : Film introuvable
+ *       500:
+ *         description: Erreur serveur
+ */
 
 router.post('/delete', (req, res) => {
   const movieRepository = appDataSource.getRepository(Movie);

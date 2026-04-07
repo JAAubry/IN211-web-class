@@ -4,6 +4,17 @@ import User from '../entities/user.js';
 
 const router = express.Router();
 
+
+/**
+ * @swagger
+ * /api/users:
+ *   get:
+ *     summary: Récupérer la liste des utilisateurs
+ *     responses:
+ *       200:
+ *         description: Liste des utilisateurs
+ */
+
 router.get('/', function (req, res) {
   appDataSource
     .getRepository(User)
@@ -12,6 +23,35 @@ router.get('/', function (req, res) {
       res.json({ users: users });
     });
 });
+
+
+
+/**
+ * @swagger
+ * /api/users/new:
+ *   post:
+ *     summary: Ajouter un utilisateur
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               firstName:
+ *                 type: string
+ *                lastName:
+ *                  type: string
+ *     responses:
+ *       201:
+ *         description: Utilisateur ajouté
+ *       500:
+ *         description: Erreur serveur
+ *      400:
+ *          description: Email déjà utilisé
+ */
 
 router.post('/new', function (req, res) {
   const userRepository = appDataSource.getRepository(User);
@@ -37,6 +77,29 @@ router.post('/new', function (req, res) {
       }
     });
 });
+
+/**
+ * @swagger
+ * /api/users/delete:
+ *   post:
+ *     summary: Supprimer un utilisateur
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *     responses:
+ *       204:
+ *         description: Utilisateur supprimé
+ *       404:
+ *         description : Utilisateur introuvable
+ *       500:
+ *         description: Erreur serveur
+ */
 
 router.delete('/:userId', function (req, res) {
   appDataSource
