@@ -3,6 +3,7 @@ import {useState } from 'react'
 import reactLogo from '../../assets/react.svg'
 import { useFetchMovies } from '../../hooks/useFetchMovies'
 import { MovieCard } from '../../components/MovieCard'
+import { Login } from '../../components/Login'
 
 function filterMovies(search: string, movies: string[]) {
     return movies.filter(  (movie) =>
@@ -36,6 +37,8 @@ function Home() {
       {filteredMovies.map(title => (
         <MovieCard title={title} />
       ))}
+
+      <Login/>
     </div>
   )
 }
