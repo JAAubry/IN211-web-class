@@ -169,7 +169,10 @@ router.post('/login', function (req, res) {
             { expiresIn: '1h' }
           );
 
-          res.json({ token });
+          res.cookie("token",token, {
+            httpOnly:true,
+            secure:false,
+          });
         });
     })
     .catch(err => {
