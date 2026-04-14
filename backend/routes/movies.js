@@ -66,7 +66,7 @@ router.post('/new', (req,res) => {
 /**
  * @swagger
  * /api/movies/delete:
- *   post:
+ *   delete:
  *     summary: Supprimer un film
  *     requestBody:
  *       required: true
