@@ -3,6 +3,7 @@ import { appDataSource } from '../datasource.js';
 import User from '../entities/user.js';
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { authMiddleware } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -177,5 +178,37 @@ router.post('/login', function (req, res) {
     });
 });
 
+
+/**
+ * @swagger
+ * /api/users/me:
+ *   get:
+ *     summary: Récupérer les informations de l'utilisateur connecté
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Informations de l'utilisateur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                 firstname:
+ *                   type: string
+ *                 lastname:
+ *                   type: string
+ *       401:
+ *         description: Non autorisé (token invalide ou absent)
+ *       500:
+ *         description: Erreur serveur
+ */
+router.get("/me",authMiddleware, (req,res) => {
+res.send(req.user);
+});
 
 export default router;
