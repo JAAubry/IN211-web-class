@@ -190,3 +190,35 @@ p {
 .card {
   animation: fadeIn 0.4s ease;
 }
+
+/* -----------------------
+   MOVIE ITEM WRAPPER
+----------------------- */
+.movie-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* -----------------------
+   FAVORITE BUTTON
+----------------------- */
+.fav-button {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  color: white;
+
+  box-shadow: 0 4px 10px rgba(200, 150, 220, 0.3);
+  transition: all 0.2s ease;
+}
+
+.fav-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(200, 150, 220, 0.5);
+}
