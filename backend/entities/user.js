@@ -1,22 +1,33 @@
-import typeorm from 'typeorm';
+import { EntitySchema } from 'typeorm'
 
-const User = new typeorm.EntitySchema({
+export default new EntitySchema({
   name: 'User',
+  tableName: 'user',
   columns: {
     id: {
+      type: Number,
       primary: true,
-      generated: 'uuid',
-      type: String,
+      generated: true,
     },
     email: {
       type: String,
-      unique: true,
     },
-    firstname: { type: String },
-    lastname: { type: String },
-    password: { type: String
+    password: {
+      type: String,
     },
   },
-});
-
-export default User;
+  relations: {
+    favourites: {
+      type: 'many-to-many',
+      target: 'Movie',
+      inverseSide: 'favouritedBy',
+      joinTable: true,
+      cascade: true,
+    },
+    notes: {
+      type: 'one-to-many',
+      target: 'Note',
+      inverseSide: 'user',
+    },
+  },
+})

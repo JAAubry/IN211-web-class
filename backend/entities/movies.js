@@ -1,16 +1,27 @@
-import typeorm from 'typeorm'
+import { EntitySchema } from 'typeorm'
 
-const Movie = new typeorm.EntitySchema({
+export default new EntitySchema({
   name: 'Movie',
+  tableName: 'movie',
   columns: {
     id: {
+      type: Number,
       primary: true,
-      generated: 'uuid',
+      generated: true,
+    },
+    title: {
       type: String,
     },
-    title: { type: String },
-    date: { type: String }
+    poster: {
+      type: String,
+      nullable: true,
+    },
   },
-});
-
-export default Movie;
+  relations: {
+    favouritedBy: {
+      type: 'many-to-many',
+      target: 'User',
+      inverseSide: 'favourites',
+    },
+  },
+})
