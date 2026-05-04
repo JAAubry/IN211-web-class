@@ -35,7 +35,7 @@ vi.mock('../../hooks/useFetchMovies', () => ({
 
 it('displays Home', () => {
   render(<Home />)
-  expect(screen.getByText('Popular Movies')).toBeInTheDocument()
+  expect(screen.getByText('Les films en vogue')).toBeInTheDocument()
 })
 
 it('displays all popular movies when the search bar is empty', () => {

@@ -4,21 +4,18 @@ import './App.css'
 
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home/Home'
-import MoviePage from './pages/Movie/MoviePage'
+import Perso from './pages/Perso/Perso'
+import Navbar from './components/Navbar'
+
 
 function App() {
   return (
-    <BrowserRouter>
-      <nav style={{ padding: '1rem', textAlign: 'center' }}>
-        <Link to="/" style={{ marginRight: '1rem' }}>
-          Home
-        </Link>
-        <Link to="/movies">Movies</Link>
-      </nav>
+        <BrowserRouter>
+      <Navbar />
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/movies" element={<MoviePage />} />
+        <Route path="/perso" element={<Perso />} />
       </Routes>
     </BrowserRouter>
   )

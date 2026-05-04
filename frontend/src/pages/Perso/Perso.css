@@ -1,0 +1,47 @@
+.perso-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    color: #d291bc;
+}
+
+.card {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: 20px;
+
+    background: #ffffffcc;
+    backdrop-filter: blur(10px);
+
+    box-shadow: 0 10px 30px rgba(200, 150, 220, 0.2);
+}
+
+input {
+    padding: 0.5rem;
+    border-radius: 20px;
+    border: 1px solid #f3c6e0;
+    margin: 0.5rem;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(135deg, #f8a5c2, #c8a2c8);
+    color: white;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-top: 0.5rem;
+}

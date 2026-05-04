@@ -77,11 +77,28 @@ input:focus {
   margin-bottom: 2rem;
 }
 
-/* title tweak */
-.title {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.2rem;
-  color: #d291bc;
+.right-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.perso-link {
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+
+  background: linear-gradient(135deg, #ffb6c1, #d8b4f8);
+  color: white;
+
+  box-shadow: 0 5px 12px rgba(200, 150, 220, 0.3);
+  transition: all 0.2s ease;
+}
+
+.perso-link:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 18px rgba(200, 150, 220, 0.5);
 }
 
 /* -----------------------
@@ -101,7 +118,7 @@ input:focus {
 
 /* smaller inputs */
 .login-inline input {
-  width: 140px;
+  width: 240px;
   padding: 0.4rem 0.6rem;
   font-size: 0.85rem;
   border-radius: 15px;

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import filmLogo from '../../assets/movies-icon.png'
 import { useFetchMovies } from '../../hooks/useFetchMovies'
 import { MovieCard } from '../../components/MovieCard'
+import { Link } from 'react-router-dom'
 
 function filterMovies(search: string, movies: string[]) {
   return movies.filter((movie) =>
@@ -69,24 +70,22 @@ function Home() {
 
     {/* TOP BAR */}
     <div className="top-bar">
-      <h1 className="title">Mon movie journal </h1>
-
-      <div className="login-inline">
-        <input
+      <div className="right-actions">
+        <div className="login-inline">
+          <input
           type="text"
           placeholder="E-mail"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-        />
-
-        <input
-          type="password"
-          placeholder="Mot de passe"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        <button onClick={handleLogin}>Login</button>
+          />
+          <input
+            type="password"
+            placeholder="Mot de passe"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button onClick={handleLogin}>Login</button>
+        </div>
       </div>
     </div>
 

@@ -1,0 +1,71 @@
+/* -----------------------
+   NAVBAR CONTAINER
+----------------------- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0.8rem 2rem;
+    margin-bottom: 1.5rem;
+
+    background: #ffffffcc;
+    backdrop-filter: blur(12px);
+
+    border-radius: 30px;
+    box-shadow: 0 8px 25px rgba(200, 150, 220, 0.2);
+}
+
+/* -----------------------
+   LEFT (LOGO)
+----------------------- */
+.logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    text-decoration: none;
+    color: #d291bc;
+}
+
+/* -----------------------
+   CENTER LINKS
+----------------------- */
+.nav-center {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    font-size: 0.95rem;
+    color: #6d5a72;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+/* cute underline animation */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #d291bc;
+    transition: width 0.25s ease;
+}
+
+.nav-link:hover {
+    color: #d291bc;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* -----------------------
+   RIGHT STATUS
+----------------------- */
+.nav-status {
+    font-size: 0.85rem;
+    color: #a678b4;
+}
