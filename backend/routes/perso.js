@@ -4,7 +4,7 @@ import { authMiddleware } from '../middleware/auth.js'
 
 import User from '../entities/user.js'
 import Movie from '../entities/movies.js'
-import Note from '../entities/note.js'
+import Note from '../entities/notes.js'
 
 const router = express.Router()
 
