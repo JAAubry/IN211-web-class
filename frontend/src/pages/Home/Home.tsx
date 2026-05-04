@@ -25,6 +25,12 @@ function Home() {
   const [message, setMessage] = useState('')
 
   // --------------------
+  // SIGNUP STATE
+  // --------------------
+  const [signupEmail, setSignupEmail] = useState('')
+  const [signupPassword, setSignupPassword] = useState('')
+  
+  // --------------------
   // LOGIN HANDLER
   // --------------------
   async function handleLogin() {
@@ -60,6 +66,42 @@ function Home() {
     }
   }
 
+
+  // --------------------
+  // SIGN UP HANDLER
+  // --------------------
+  async function handleSignup() {
+  if (!signupEmail || !signupPassword) {
+    setMessage('Entrez vos informations de création de compte')
+    return
+  }
+
+  try {
+    const response = await fetch('/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: signupEmail,
+        password: signupPassword,
+      }),
+    })
+
+    if (response.status === 409) {
+      setMessage('Utilisateur déjà existant')
+      return
+    }
+    if (response.status === 500) {
+      setMessage('Erreur serveur')
+      return
+    }
+    if (response.ok) {
+      setMessage('Compte créé avec succès')
+    }
+  } catch (error) {
+    setMessage('Erreur serveur')
+  }
+}
+
   // --------------------
   // RENDER
   // --------------------
@@ -70,11 +112,12 @@ function Home() {
     <div className="top-bar">
       <div className="right-actions">
         <div className="login-inline">
+          {/* LOGIN */}
           <input
-          type="text"
-          placeholder="E-mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            placeholder="E-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
@@ -83,6 +126,22 @@ function Home() {
             onChange={(e) => setPassword(e.target.value)}
           />
           <button onClick={handleLogin}>Login</button>
+
+          {/* SIGNUP */}
+          <input
+            type="text"
+            placeholder="E-mail (signup)"
+            value={signupEmail}
+            onChange={(e) => setSignupEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Mot de passe (signup)"
+            value={signupPassword}
+            onChange={(e) => setSignupPassword(e.target.value)}
+          />
+          <button onClick={handleSignup}>Sign up</button>
+
         </div>
       </div>
     </div>

@@ -118,7 +118,7 @@ input:focus {
 
 /* smaller inputs */
 .login-inline input {
-  width: 240px;
+  width: 190px;
   padding: 0.4rem 0.6rem;
   font-size: 0.85rem;
   border-radius: 15px;
