@@ -1,9 +1,7 @@
 import './Home.css'
 import { useState } from 'react'
-import filmLogo from '../../assets/movies-icon.png'
 import { useFetchMovies } from '../../hooks/useFetchMovies'
 import { MovieCard } from '../../components/MovieCard'
-import { Link } from 'react-router-dom'
 
 function filterMovies(search: string, movies: string[]) {
   return movies.filter((movie) =>
