@@ -1,76 +1,127 @@
-import './Perso.css'
-import { useState } from 'react'
-import { useAuth } from '../../hooks/useAuth'
+import { useEffect, useState } from 'react'
 
 function Perso() {
-  const { isAuthenticated } = useAuth()
+  const [favourites, setFavourites] = useState<any[]>([])
+  const [notes, setNotes] = useState<any[]>([])
 
-  const [notes, setNotes] = useState<string[]>([])
   const [noteInput, setNoteInput] = useState('')
+  const [selectedMovieId, setSelectedMovieId] = useState<number | null>(null)
 
-  const [playlists, setPlaylists] = useState<string[]>([])
-  const [playlistInput, setPlaylistInput] = useState('')
+  // -----------------------
+  // FETCH HELPERS (INLINE)
+  // -----------------------
 
-  if (!isAuthenticated) {
-    return <h2>Accès refusé</h2>
+  async function getFavourites() {
+    const res = await fetch('/api/perso/favourites', {
+      credentials: 'include',
+    })
+    return res.json()
   }
 
-  function addNote() {
-    if (!noteInput) return
-    setNotes([...notes, noteInput])
+  async function getNotes() {
+    const res = await fetch('/api/perso/notes', {
+      credentials: 'include',
+    })
+    return res.json()
+  }
+
+  async function addFavourite(movieId: number) {
+    const res = await fetch('/api/perso/favourites', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ movieId }),
+    })
+    return res.json()
+  }
+
+  async function addNote(movieId: number, content: string) {
+    const res = await fetch('/api/perso/notes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ movieId, content }),
+    })
+    return res.json()
+  }
+
+  // -----------------------
+  // LOAD DATA
+  // -----------------------
+  useEffect(() => {
+    async function load() {
+      const favs = await getFavourites()
+      const n = await getNotes()
+
+      setFavourites(favs)
+      setNotes(n)
+    }
+
+    load()
+  }, [])
+
+  // -----------------------
+  // HANDLERS
+  // -----------------------
+
+  async function handleAddNote() {
+    if (!selectedMovieId || !noteInput) return
+
+    const newNote = await addNote(selectedMovieId, noteInput)
+
+    setNotes([...notes, newNote])
     setNoteInput('')
   }
 
-  function addPlaylist() {
-    if (!playlistInput) return
-    setPlaylists([...playlists, playlistInput])
-    setPlaylistInput('')
+  async function handleAddFavourite(movieId: number) {
+    const updated = await addFavourite(movieId)
+    setFavourites(updated)
   }
 
-  return (
-    <div className="perso-container">
-      <h1>My Space</h1>
+  // -----------------------
+  // UI (simplified)
+  // -----------------------
 
-      {/* FAVORITES */}
-      <section className="card">
-        <h2>My Favourites</h2>
-        <p>❤️ Your favourite movies will appear here</p>
+  return (
+    <div>
+      <h1>Mon journal</h1>
+
+      {/* FAVOURITES */}
+      <section>
+        <h2>❤️ Favoris</h2>
+
+        {favourites.map((movie: any) => (
+          <div key={movie.id}>
+            <p>{movie.title}</p>
+
+            <button onClick={() => setSelectedMovieId(movie.id)}>
+              Ajouter une note
+            </button>
+
+            <button onClick={() => handleAddFavourite(movie.id)}>
+              ❤️ Toggle Favori
+            </button>
+          </div>
+        ))}
       </section>
 
       {/* NOTES */}
-      <section className="card">
-        <h2>My Notes</h2>
+      <section>
+        <h2>📝 Notes</h2>
 
         <input
-          placeholder="Ajouter une note"
+          placeholder="Ecris une note"
           value={noteInput}
           onChange={(e) => setNoteInput(e.target.value)}
         />
 
-        <button onClick={addNote}>Add Note</button>
+        <button onClick={handleAddNote}>Add Note</button>
 
         <ul>
-          {notes.map((note, i) => (
-            <li key={i}>{note}</li>
-          ))}
-        </ul>
-      </section>
-
-      {/* PLAYLISTS */}
-      <section className="card">
-        <h2>Playlists</h2>
-
-        <input
-          placeholder="Nom de la playlist"
-          value={playlistInput}
-          onChange={(e) => setPlaylistInput(e.target.value)}
-        />
-
-        <button onClick={addPlaylist}>Create</button>
-
-        <ul>
-          {playlists.map((p, i) => (
-            <li key={i}>{p}</li>
+          {notes.map((note: any) => (
+            <li key={note.id}>
+              {note.content} (movie: {note.movie?.title || note.movieId})
+            </li>
           ))}
         </ul>
       </section>
