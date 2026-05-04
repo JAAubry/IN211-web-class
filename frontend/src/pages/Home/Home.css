@@ -1,12 +1,175 @@
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+/* -----------------------
+   GLOBAL STYLE
+----------------------- */
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #fff0f5, #f8f0ff);
+  font-family: 'Poppins', sans-serif;
+  color: #4b3b4e;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  color: #d291bc;
+  margin-bottom: 0.5rem;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+
+h2 {
+  font-family: 'Playfair Display', serif;
+  color: #a678b4;
+}
+
+/* -----------------------
+   SEARCH CARD
+----------------------- */
+.card {
+  margin: 1.5rem 0;
+}
+
+input {
+  padding: 0.6rem 1rem;
+  margin: 0.4rem;
+  width: 560px;
+  font-size: 0.95rem;
+  border-radius: 20px;
+  border: 1px solid #f3c6e0;
+  outline: none;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(255, 182, 193, 0.15);
+  transition: all 0.2s ease;
+}
+
+input:focus {
+  border-color: #d291bc;
+  box-shadow: 0 0 8px rgba(210, 145, 188, 0.4);
+}
+
+/* -----------------------
+   MOVIES GRID
+----------------------- */
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* -----------------------
+   LOGIN BOX
+----------------------- */
+.login {
+  margin-top: 3rem;
+  padding: 2rem;
+  border-radius: 25px;
+  background: #ffffffcc;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(200, 150, 220, 0.2);
+}
+
+/* -----------------------
+   TOP BAR (TITLE + LOGIN)
+----------------------- */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: right;
+  margin-bottom: 2rem;
+}
+
+/* title tweak */
+.title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  color: #d291bc;
+}
+
+/* -----------------------
+   COMPACT LOGIN
+----------------------- */
+.login-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  background: #ffffffcc;
+  padding: 0.5rem 0.8rem;
+  border-radius: 30px;
+
+  box-shadow: 0 5px 15px rgba(200, 150, 220, 0.2);
+}
+
+/* smaller inputs */
+.login-inline input {
+  width: 140px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.85rem;
+  border-radius: 15px;
+}
+
+/* smaller button */
+.login-inline button {
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  border-radius: 20px;
+}
+
+/* -----------------------
+   BUTTON
+----------------------- */
+button {
+  margin-top: 1rem;
+  padding: 0.6rem 1.5rem;
+  border-radius: 25px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #f8a5c2, #c8a2c8);
+  color: white;
+
+  box-shadow: 0 5px 15px rgba(200, 150, 220, 0.4);
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(200, 150, 220, 0.6);
+}
+
+/* -----------------------
+   MESSAGE
+----------------------- */
+.message {
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #b06ab3;
+}
+
+/* -----------------------
+   EMPTY STATE
+----------------------- */
+p {
+  font-size: 0.95rem;
+}
+
+/* -----------------------
+   SUBTLE ANIMATION
+----------------------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login,
+.movie-grid,
+.card {
+  animation: fadeIn 0.4s ease;
 }

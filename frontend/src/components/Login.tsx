@@ -12,14 +12,14 @@ export function Login() {
           headers: {
               "Content-Type":"application/json",
           },
-          body:JSON.stringify({ email, password }),
+          body:JSON.stringify({ email, password,  withCredentials: true }),
           });
     };
 
   return (
     <form onSubmit={handleSubmit}>
-    <input onChange={(e) =>setEmail(e.target.value)}/>
-    <input type="password" onChange = {(e) =>setPassword(e.target.value)}/>
+    <input onChange={(e) =>setEmail(e.target.value)} placeholder="E-mail"/>
+    <input type="password" onChange = {(e) =>setPassword(e.target.value)} placeholder="Mot de passe"/>
     <button type="submit">Login</button>
     </form>
     );
